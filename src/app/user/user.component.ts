@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
 
 @Component({
@@ -9,9 +9,16 @@ import { DUMMY_USERS } from '../dummy-users';
   styleUrl: './user.component.css'
 })
 export class UserComponent {
-  public selectedUser = DUMMY_USERS[this.getRandomeUser()]
+  public selectedUser: WritableSignal<any> = signal(DUMMY_USERS[this.getRandomUser()]);
 
-  private getRandomeUser(): number {
+  public imagePath: Signal<string> = computed(()=> `assets/users/${this.selectedUser().avatar}`)
+
+  public getSelectedUser(){
+    this.selectedUser.set(DUMMY_USERS[this.getRandomUser()]);
+  }
+
+  private getRandomUser(): number {
     return Math.floor(Math.random() * DUMMY_USERS.length);
   }
+
 }
