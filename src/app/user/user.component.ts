@@ -1,5 +1,4 @@
-import { Component, Signal, WritableSignal, computed, signal } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -9,16 +8,24 @@ import { DUMMY_USERS } from '../dummy-users';
   styleUrl: './user.component.css'
 })
 export class UserComponent {
-  public selectedUser: WritableSignal<any> = signal(DUMMY_USERS[this.getRandomUser()]);
+  @Input({required: true})
+  public avatar!: string;
 
-  public imagePath: Signal<string> = computed(()=> `assets/users/${this.selectedUser().avatar}`)
+  @Input({required: true})
+  public name!: string;
 
-  public getSelectedUser(){
-    this.selectedUser.set(DUMMY_USERS[this.getRandomUser()]);
+  @Input({required: true})
+  public id!: string;
+
+  @Output()
+  public select = new EventEmitter();
+
+  get imagePath(): string{
+    return `/assets/users/${this.avatar}`;
   }
 
-  private getRandomUser(): number {
-    return Math.floor(Math.random() * DUMMY_USERS.length);
+  public getSelectedUser(): void{
+    this.select.emit(this.id);
   }
 
 }
