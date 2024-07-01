@@ -1,14 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { dummyTasks } from '../dummy-tasks';
+import { Task } from './task/task.model';
 
-interface Task {
-  id: string,
-  userId: string
-  title: string,
-  summary: string,
-  dueDate: string
- }
+
 
 @Component({
   selector: 'app-tasks',
@@ -20,6 +15,14 @@ interface Task {
 export class TasksComponent {
   @Input()
   public name?: string;
+
+  @Input()
+  public selectedUserId?: string;
+
   public tasks: Task[] = dummyTasks;
+
+  get selectedUsersTasks(): Task[] | undefined{
+    return this.tasks.filter(({userId}) => userId === this.selectedUserId);
+  }
 
 }

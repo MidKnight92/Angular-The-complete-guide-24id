@@ -1,8 +1,9 @@
-import { User, UserComponent } from './user/user.component';
+import { UserComponent } from './user/user.component';
 import { Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component'
 import { DUMMY_USERS } from './dummy-users';
 import { TasksComponent } from './tasks/tasks.component';
+import { User } from './user/user.model';
 
 
 
@@ -22,7 +23,7 @@ export class AppComponent {
     this.selectedUserId = id;
   }
 
-  get selectedUser(): any {
+  get selectedUser(): User | undefined {
     return this.users.find(({id}) => id === this.selectedUserId)
   }
 }
