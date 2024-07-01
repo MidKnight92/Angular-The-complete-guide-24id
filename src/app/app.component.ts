@@ -15,7 +15,7 @@ import { TasksComponent } from './tasks/tasks.component';
 })
 
 export class AppComponent {
-  private selectedUserId: string = 'u1';
+  private selectedUserId?: string;
   public users: User [] = DUMMY_USERS;
 
   public onSelectUser(id: string){
