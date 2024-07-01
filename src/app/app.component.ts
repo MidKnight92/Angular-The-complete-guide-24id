@@ -1,8 +1,9 @@
-import { UserComponent } from './user/user.component';
+import { User, UserComponent } from './user/user.component';
 import { Component } from '@angular/core';
 import { HeaderComponent } from './header/header.component'
 import { DUMMY_USERS } from './dummy-users';
 import { TasksComponent } from './tasks/tasks.component';
+
 
 
 @Component({
@@ -15,7 +16,7 @@ import { TasksComponent } from './tasks/tasks.component';
 
 export class AppComponent {
   private selectedUserId: string = 'u1';
-  public users: {id:string, name: string, avatar:string}[] = DUMMY_USERS;
+  public users: User [] = DUMMY_USERS;
 
   public onSelectUser(id: string){
     this.selectedUserId = id;

@@ -10,9 +10,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class TasksComponent {
   @Input()
-  public name!: string;
-
-  @Input()
-  public id!: string;
+  public name?: string;
 
 }
