@@ -19,14 +19,21 @@ export class TasksComponent {
   @Input()
   public selectedUserId?: string;
 
+  @Output()
+  public newTask = new EventEmitter<string>();
+
   public tasks: Task[] = dummyTasks;
 
   get selectedUsersTasks(): Task[] | undefined{
     return this.tasks.filter(({userId}) => userId === this.selectedUserId);
   }
 
-  public removeCompletedTask(id: string){
-    console.log(id);
+  public removeCompletedTask(taskId: string){
+    this.tasks = [...this.tasks].filter(({id}) => id === taskId);
+  }
+
+  public addTask(): void {
+    this.newTask.emit('new task');
   }
 
 }
