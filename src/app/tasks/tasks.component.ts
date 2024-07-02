@@ -25,4 +25,8 @@ export class TasksComponent {
     return this.tasks.filter(({userId}) => userId === this.selectedUserId);
   }
 
+  public removeCompletedTask(id: string){
+    console.log(id);
+  }
+
 }

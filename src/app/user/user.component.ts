@@ -12,6 +12,8 @@ export class UserComponent {
   @Input({required: true})
   public user!: User;
 
+  @Input()
+  public isActive?: boolean;
 
   @Output()
   public select = new EventEmitter();

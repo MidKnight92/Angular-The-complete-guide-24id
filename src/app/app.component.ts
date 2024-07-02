@@ -16,7 +16,7 @@ import { User } from './user/user.model';
 })
 
 export class AppComponent {
-  private selectedUserId?: string;
+  public selectedUserId?: string;
   public users: User [] = DUMMY_USERS;
 
   public onSelectUser(id: string){
