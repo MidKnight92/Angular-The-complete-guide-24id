@@ -1,11 +1,12 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TasksComponent } from '../tasks.component';
 import { Task } from '../task/task.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-add-task',
   standalone: true,
-  imports: [TasksComponent],
+  imports: [TasksComponent, FormsModule],
   templateUrl: './add-task.component.html',
   styleUrl: './add-task.component.css'
 })
@@ -13,8 +14,19 @@ import { Task } from '../task/task.model';
   @Input()
   public task?: Task;
 
-  public addNewTask(task: Task): void{
+  @Output()
+  public isCanceled = new EventEmitter();
+
+  public enteredTitle = '';
+  public enteredSummary = '';
+  public enteredDate = '';
+
+  public addNewTask(task: Task): void {
     this.task = task;
+  }
+
+  public cancelTask(): void {
+    this.isCanceled.emit(false);
   }
 }
 

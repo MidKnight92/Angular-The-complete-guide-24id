@@ -35,5 +35,9 @@ export class TasksComponent {
   public addTask(): void {
     this.isAddNewTask = true;
   }
+
+  public closeAddTask(bool: boolean){
+    this.isAddNewTask = bool;
+  }
 }
 
