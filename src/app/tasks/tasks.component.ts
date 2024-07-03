@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskComponent } from './task/task.component';
 import { dummyTasks } from '../dummy-tasks';
-import { Task } from './task/task.model';
+import { NewTask, Task } from './task/task.model';
 import { AddTaskComponent } from './add-task/add-task.component';
 
 
@@ -18,7 +18,7 @@ export class TasksComponent {
   public name?: string;
 
   @Input()
-  public selectedUserId?: string;
+  public selectedUserId!: string;
 
   public isAddNewTask = false;
 
@@ -38,6 +38,19 @@ export class TasksComponent {
 
   public closeAddTask(bool: boolean){
     this.isAddNewTask = bool;
+  }
+
+  public addNewTask(input: NewTask){
+    this.tasks.push({
+      id: this.generateUniqueId(),
+      userId: this.selectedUserId,
+      ...input
+    })
+    this.isAddNewTask = false;
+  }
+
+  private generateUniqueId(): string{
+    return Date.now().toString(36) + Math.random().toString(36).substring(2);
   }
 }
 

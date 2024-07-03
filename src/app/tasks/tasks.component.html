@@ -17,7 +17,7 @@
 </section>
 <section>
      @if(isAddNewTask) {
-        <app-add-task (isCanceled)="closeAddTask($event)" />
+        <app-add-task (isCanceled)="closeAddTask($event)" (newTask)="addNewTask($event)"/>
     }   
 </section>
 

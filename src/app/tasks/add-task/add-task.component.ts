@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TasksComponent } from '../tasks.component';
-import { Task } from '../task/task.model';
+import { NewTask, Task } from '../task/task.model';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -17,6 +17,9 @@ import { FormsModule } from '@angular/forms';
   @Output()
   public isCanceled = new EventEmitter();
 
+  @Output()
+  public newTask = new EventEmitter<NewTask>();
+
   public enteredTitle = '';
   public enteredSummary = '';
   public enteredDate = '';
@@ -28,15 +31,8 @@ import { FormsModule } from '@angular/forms';
   public cancelTask(): void {
     this.isCanceled.emit(false);
   }
+
+  public onSubmit(){
+    this.newTask.emit({title: this.enteredTitle, summary: this.enteredSummary, dueDate: this.enteredDate})
+  }
 }
-
-
-/*
-   const newTaskValue = {
-      id: 't4',
-      userId: 'userId4',
-      title: 'Add new task',
-      summary: 'Add new component and render to screen.',
-      dueDate: '2024-07-02'
-     }
-*/
