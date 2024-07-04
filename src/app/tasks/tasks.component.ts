@@ -22,7 +22,6 @@ export class TasksComponent {
 
   public isAddNewTask = false;
 
-  public tasks: Task[] = dummyTasks;
 
   get selectedUsersTasks(): Task[] | undefined{
     return this.tasks.filter(({userId}) => userId === this.selectedUserId);
@@ -49,8 +48,5 @@ export class TasksComponent {
     this.isAddNewTask = false;
   }
 
-  private generateUniqueId(): string{
-    return Date.now().toString(36) + Math.random().toString(36).substring(2);
-  }
 }
 

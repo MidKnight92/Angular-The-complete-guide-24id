@@ -1,12 +1,15 @@
-@if(task){
-    <article>
-        <h2>{{task.title}}</h2>
-        <time>{{task.dueDate}}</time>
-        <p>{{task.summary}}</p>
-        <p class="actions">
-        <button (click)="completeTask()">Complete</button>
-        </p>
-    </article>
-} @else {
-    <p>No task assigned.</p>
-}
+<app-card>
+    @if(task){
+        <article>
+            <h2>{{task.title}}</h2>
+            <time>{{task.dueDate | date: 'fulldate' }}</time>
+            <p>{{task.summary}}</p>
+            <p class="actions">
+            <button (click)="completeTask()">Complete</button>
+            </p>
+        </article>
+    } @else {
+        <p>No task assigned.</p>
+    }
+</app-card>
+
