@@ -9,7 +9,7 @@
         <ul>
             @for (task of selectedUsersTasks; track task.id){
                 <li>
-                    <app-task [task]="task" (complete)="removeCompletedTask($event)"/>
+                    <app-task [task]="task" (complete)="removeCompletedTask(task.id)"/>
                 </li>    
             }
     
@@ -17,7 +17,7 @@
 </section>
 <section>
      @if(isAddNewTask) {
-        <app-add-task (isCanceled)="closeAddTask($event)" (newTask)="addNewTask($event)"/>
+        <app-add-task (isCanceledOrClosed)="closeAddTask($event)" [userId]="selectedUserId"/>
     }   
 </section>
 

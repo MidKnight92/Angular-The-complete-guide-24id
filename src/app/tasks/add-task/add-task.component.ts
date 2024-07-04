@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TasksComponent } from '../tasks.component';
-import { NewTask, Task } from '../task/task.model';
+import { Task } from '../task/task.model';
 import { FormsModule } from '@angular/forms';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-add-task',
@@ -11,14 +12,16 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './add-task.component.css'
 })
   export class AddTaskComponent {
+    constructor(private taskService:TasksService){}
+
   @Input()
   public task?: Task;
 
-  @Output()
-  public isCanceled = new EventEmitter();
+  @Input()
+  public userId!: string; 
 
   @Output()
-  public newTask = new EventEmitter<NewTask>();
+  public isCanceledOrClosed = new EventEmitter();
 
   public enteredTitle = '';
   public enteredSummary = '';
@@ -28,11 +31,12 @@ import { FormsModule } from '@angular/forms';
     this.task = task;
   }
 
-  public cancelTask(): void {
-    this.isCanceled.emit(false);
+  public cancelOrCloseTask(): void {
+    this.isCanceledOrClosed.emit(false);
   }
 
   public onSubmit(){
-    this.newTask.emit({title: this.enteredTitle, summary: this.enteredSummary, dueDate: this.enteredDate})
+    this.taskService.addTask({title: this.enteredTitle, summary: this.enteredSummary, dueDate: this.enteredDate}, this.userId);
+    this.isCanceledOrClosed.emit(false);
   }
 }

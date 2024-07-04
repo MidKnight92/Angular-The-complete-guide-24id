@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { TaskComponent } from './task/task.component';
-import { dummyTasks } from '../dummy-tasks';
 import { NewTask, Task } from './task/task.model';
 import { AddTaskComponent } from './add-task/add-task.component';
-
+import { TasksService } from './tasks.service';
 
 
 @Component({
@@ -14,6 +13,8 @@ import { AddTaskComponent } from './add-task/add-task.component';
   styleUrl: './tasks.component.css'
 })
 export class TasksComponent {
+  constructor(private taskService: TasksService){}
+
   @Input()
   public name?: string;
 
@@ -23,12 +24,12 @@ export class TasksComponent {
   public isAddNewTask = false;
 
 
-  get selectedUsersTasks(): Task[] | undefined{
-    return this.tasks.filter(({userId}) => userId === this.selectedUserId);
+  get selectedUsersTasks(): Task[]{
+    return this.taskService.getUserTasksById(this.selectedUserId);
   }
 
   public removeCompletedTask(taskId: string){
-    this.tasks = [...this.tasks].filter(({id}) => id === taskId);
+    this.taskService.removeTask(taskId);
   }
 
   public addTask(): void {
@@ -40,11 +41,7 @@ export class TasksComponent {
   }
 
   public addNewTask(input: NewTask){
-    this.tasks.push({
-      id: this.generateUniqueId(),
-      userId: this.selectedUserId,
-      ...input
-    })
+    this.taskService.addTask(input, this.selectedUserId);
     this.isAddNewTask = false;
   }
 
