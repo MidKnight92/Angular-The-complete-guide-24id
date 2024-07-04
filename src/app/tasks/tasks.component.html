@@ -9,7 +9,7 @@
         <ul>
             @for (task of selectedUsersTasks; track task.id){
                 <li>
-                    <app-task [task]="task" (complete)="removeCompletedTask(task.id)"/>
+                    <app-task [task]="task"/>
                 </li>    
             }
     
